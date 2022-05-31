@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Html
+@using MvcMovie.Models;
+
+@{
+    ViewBag.Title = "Tabella con i film disponibili";
+    ViewBag.TitoloPagina = "Il mio Movie Store";
+    Layout = "~/Views/Shared/_LayoutMovie.cshtml";
+    string[] TableHeaders = new string[] { "Poster","MovieID", "Titolo", "Genere", "Prezzo" };
+}
+
+@{
+    Func<dynamic, IHtmlContent> StampaTitolo(Movie mMovie) =>
+        @<h1>@mMovie.Title
+        </h1>;
+
+         Func<dynamic, IHtmlContent> StampaMainTitolo(string sTitolo) =>
+        @<h1>@sTitolo
+        </h1>;
+
+        Func<dynamic, IHtmlContent> StampaTabella(Movie mMovie) =>
+        @<tr>
+            <td class="image"><img class="post-list-image" src="@mMovie.Photo"></td>
+            <td>@Convert.ToString(mMovie.Id)</td>
+            <td>@Convert.ToString(mMovie.Title)</td>
+            <td>@Convert.ToString(mMovie.Genre)</td>
+            <td>@Convert.ToString(mMovie.Price)</td>
+        </tr>
+        ;
+    
+}
+
+@StampaMainTitolo("Titolo speciale")(null)
+
+<h2>Lista Movies il giorno @DateTime.Now.ToShortDateString()</h2>
+
+<div class="table">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                @{
+                    foreach (var head in TableHeaders)
+                    {
+                        <th>
+                            @head
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var data in Model)
+                    {
+                        @StampaTabella((MvcMovie.Models.Movie)data)(null)
+                    }
+                }
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+
