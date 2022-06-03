@@ -44,5 +44,12 @@ namespace MvcMovie.Controllers
             PrendiDati();
             return View(lsMovies);
         }
+
+        public string ProvaParametri(string Nome,string Cognome)
+        {
+            string sAppo = "i dati inseriti sono:" + Nome + Cognome;
+            string sQueryString = Request.QueryString.ToString();
+            return sAppo;
+        }
     }
 }
